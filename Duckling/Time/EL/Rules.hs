@@ -234,7 +234,7 @@ ruleEvening :: Rule
 ruleEvening = Rule
   { name = "evening"
   , pattern =
-    [ regex "βράδυ"
+    [ regex "βρ[αά]δυ"
     ]
   , prod = \_ ->
       let from = hour False 18
@@ -573,8 +573,8 @@ ruleAfternoon = Rule
     [ regex "απ[οό]γε[υύ]μα(τος)?"
     ]
   , prod = \_ ->
-      let from = hour False 12
-          to = hour False 18
+      let from = hour False 16
+          to = hour False 21
       in Token Time . mkLatent . partOfDay <$>
            interval TTime.Open from to
   }
@@ -830,9 +830,13 @@ ruleNoon :: Rule
 ruleNoon = Rule
   { name = "noon"
   , pattern =
-      [ regex "μεσημ[εέ]ρι(ού)?"
-      ]
-  , prod = const $ tt $ hour False 12
+    [ regex "μεσημ[εέ]ρι(ού)?"
+    ]
+  , prod = \_ ->
+      let from = hour False 11
+          to = hour False 17
+      in Token Time . mkLatent . partOfDay <$>
+           interval TTime.Open from to
   }
 
 ruleDayofmonthNonOrdinalNamedmonth :: Rule
@@ -1100,7 +1104,7 @@ ruleMorning :: Rule
 ruleMorning = Rule
   { name = "morning"
   , pattern =
-    [ regex "(το\\s+)?πρωί"
+    [ regex "((το\\s+)?πρω[ιί])|(πρω[ιί])"
     ]
   , prod = \_ ->
       let from = hour False 4
@@ -1113,7 +1117,7 @@ ruleEarlyMorning :: Rule
 ruleEarlyMorning = Rule
   { name = "early morning"
   , pattern =
-    [ regex "νωρίς\\s+(το\\s+)πρωί"
+    [ regex "νωρίς\\s+(το\\s+)πρω[ιί]"
     ]
   , prod = \_ -> Token Time . partOfDay . mkLatent <$>
       interval TTime.Open (hour False 4) (hour False 9)
@@ -1380,7 +1384,7 @@ ruleTomorrowNight :: Rule
 ruleTomorrowNight = Rule
   { name = "tomorrownight"
   , pattern =
-    [ regex "αύριο\\s+(το\\s+)?βράδυ"
+    [ regex "αύριο\\s+(το\\s+)?βρ[αά]δυ"
     ]
   , prod = \_ -> do
       let td1 = cycleNth TG.Day 1
@@ -1392,7 +1396,7 @@ ruleLastNight :: Rule
 ruleLastNight = Rule
   { name = "lastnight"
   , pattern =
-    [ regex "ε?χ[θτ][εέ]ς\\s+(το\\s+)?βράδυ"
+    [ regex "ε?χ[θτ][εέ]ς\\s+(το\\s+)?βρ[αά]δυ"
     ]
   , prod = \_ -> do
       let td1 = cycleNth TG.Day $ - 1

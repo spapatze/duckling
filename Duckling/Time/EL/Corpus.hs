@@ -732,7 +732,7 @@ allExamples = concat
              [ "αύριο βράδυ"
              , "αύριο το βράδυ"
              ]
-  , examples (datetimeInterval ((2013, 2, 13, 12, 0, 0), (2013, 2, 13, 18, 0, 0)) Hour)
+  , examples (datetimeInterval ((2013, 2, 13, 16, 0, 0), (2013, 2, 13, 21, 0, 0)) Hour)
              [ "αύριο το απόγευμα"
              ]
   , examples (datetimeInterval ((2013, 2, 11, 18, 0, 0), (2013, 2, 12, 0, 0, 0)) Hour)
@@ -933,7 +933,7 @@ allExamples = concat
              , "στις 5 μμ αύριο"
              , "αύριο στις 5 μμ"
              ]
-  , examples (datetimeInterval ((2013, 2, 13, 12, 0, 0), (2013, 2, 13, 18, 0, 0)) Hour)
+  , examples (datetimeInterval ((2013, 2, 13, 16, 0, 0), (2013, 2, 13, 21, 0, 0)) Hour)
              [ "αύριο το απόγευμα"
              ]
   , examples (datetimeInterval ((2013, 2, 13, 13, 0, 0), (2013, 2, 13, 15, 0, 0)) Hour)
