@@ -1104,7 +1104,7 @@ ruleMorning :: Rule
 ruleMorning = Rule
   { name = "morning"
   , pattern =
-    [ regex "((το\\s+)?πρω[ιί])|(πρω[ιί])"
+    [ regex "πρω[ιί]"
     ]
   , prod = \_ ->
       let from = hour False 4
