@@ -69,8 +69,8 @@ ruleDaysOfWeek = zipWith go daysOfWeek [1..7]
 
 months :: [(Text, String)]
 months =
-  [ ( "January"  , "ιαν(ου[αά]ρ[ιί]ο[υς]?)?|γενάρης?"    )
-  , ( "February" , "φεβ(ρου[αά]ρ[ιί]ο[υς]?)?|φλεβάρης?"  )
+  [ ( "January"  , "ιαν(ου[αά]ρ[ιί]ο[υς]?)?|γεν[αά]ρης?"    )
+  , ( "February" , "φεβ(ρου[αά]ρ[ιί]ο[υς]?)?|φλεβ[αά]ρης?"  )
   , ( "March"    , "μ[αά]ρ(τ([ιί]ο([νυ]?)|η)ς?)?"        )
   , ( "April"    , "απρ([ιί]λ([ιί]ο([νυ]?)|η)ς?)?"       )
   , ( "May"      , "μ[αά]([ιίϊΐ]ο[νυ]?|η)ς?"             )
@@ -1117,7 +1117,7 @@ ruleEarlyMorning :: Rule
 ruleEarlyMorning = Rule
   { name = "early morning"
   , pattern =
-    [ regex "νωρίς\\s+(το\\s+)πρω[ιί]"
+    [ regex "νωρίς\\s+(το\\s+)?πρω[ιί]"
     ]
   , prod = \_ -> Token Time . partOfDay . mkLatent <$>
       interval TTime.Open (hour False 4) (hour False 9)
