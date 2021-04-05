@@ -36,26 +36,26 @@ import qualified Duckling.TimeGrain.Types as TG
 
 ruleInstants :: [Rule]
 ruleInstants = mkRuleInstants
-  [ ( "now"             , TG.Second,  0, "(αμέσως\\s+)?τώρα(\\s+αμέσως)?|αυτή τη στιγμή" )
-  , ( "today"           , TG.Day   ,  0, "σήμερα"                   )
-  , ( "tomorrow"        , TG.Day   ,  1, "(επ)?αύριο"               )
+  [ ( "now"             , TG.Second,  0, "(αμ[εέ]σως\\s+)?τ[ωώ]ρα(\\s+αμ[εέ]σως)?|αυτ[ηή] τη στιγμ[ηή]" )
+  , ( "today"           , TG.Day   ,  0, "σ[ηή]μερα"                   )
+  , ( "tomorrow"        , TG.Day   ,  1, "(επ)?α[υύ]ριο"               )
   , ( "yesterday"       , TG.Day   , -1, "ε?χ[θτ][εέ]ς"             )
-  , ( "after tomorrow"  , TG.Day   ,  2, "μεθαύριο"                 )
-  , ( "before yesterday", TG.Day   , -2, "προχ[θτ]ές"               )
-  , ( "EOD|End of day"  , TG.Day   ,  1, "τέλου?ς\\s+της\\s+η?μέρας")
-  , ( "EOM|End of month", TG.Month ,  1, "τέλου?ς\\s+του\\s+μήνα"   )
-  , ( "EOY|End of year" , TG.Year  ,  1, "τέλου?ς\\s+του\\s+χρόνου" )
+  , ( "after tomorrow"  , TG.Day   ,  2, "μεθα[υύ]ριο"                 )
+  , ( "before yesterday", TG.Day   , -2, "προχ[θτ][εέ]ς"               )
+  , ( "EOD|End of day"  , TG.Day   ,  1, "τ[εέ]λου?ς\\s+της\\s+η?μ[εέ]ρας")
+  , ( "EOM|End of month", TG.Month ,  1, "τ[εέ]λου?ς\\s+του\\s+μ[ηή]να"   )
+  , ( "EOY|End of year" , TG.Year  ,  1, "τ[εέ]λου?ς\\s+του\\s+χρ[οό]νου" )
   ]
 
 daysOfWeek :: [(Text, String)]
 daysOfWeek =
-  [ ( "monday"    , "δευτ(έρας?|\\.?)"          )
+  [ ( "monday"    , "δευτ([εέ]ρας?|\\.?)"          )
   , ( "tuesday"   , "τρ[ιί](της?|\\.?)"         )
-  , ( "wednesday" , "τετ(άρτης?|\\.?)"          )
+  , ( "wednesday" , "τετ([αά]ρτης?|\\.?)"          )
   , ( "thursday"  , "π[εέ]μ(πτης?|\\.?)"        )
-  , ( "friday"    , "παρ(ασκευής?|\\.?)"        )
+  , ( "friday"    , "παρ(ασκευ[ηή]ς?|\\.?)"        )
   , ( "saturday"  , "σ[αά]β(β[αά]το[νυ]?|\\.?)" )
-  , ( "sunday"    , "κυρ(ιακής?|\\.?)"          )
+  , ( "sunday"    , "κυρ(ιακ[ηή]ς?|\\.?)"          )
   ]
 
 ruleDaysOfWeek :: [Rule]
@@ -96,8 +96,8 @@ ruleSeasons :: [Rule]
 ruleSeasons = mkRuleSeasons
   [ ( "summer" , "καλοκα[ιί]ρι(ού)?", monthDay  6 21, monthDay  9 23 )
   , ( "fall"   , "φθιν[οό]π[ωώ]ρου?", monthDay  9 23, monthDay 12 21 )
-  , ( "winter" , "χειμώνας?"        , monthDay 12 21, monthDay  3 20 )
-  , ( "spring" , "άνοιξης?"         , monthDay  3 20, monthDay  6 21 )
+  , ( "winter" , "χειμ[ωώ]νας?"        , monthDay 12 21, monthDay  3 20 )
+  , ( "spring" , "[αά]νοιξης?"         , monthDay  3 20, monthDay  6 21 )
   ]
 
 ruleHolidays :: [Rule]
@@ -111,21 +111,21 @@ ruleHolidays = map go holidays
 
 holidays :: [(Text, TimeData, String)]
 holidays =
-  [ ("new year's day"   , monthDay 1 1, "πρωτοχρονιάς?")
-  , ("valentine's day"  , monthDay 2 14, "αγίου\\s+βαλεντίνου")
+  [ ("new year's day"   , monthDay 1 1, "πρωτοχρονι[αά]ς?")
+  , ("valentine's day"  , monthDay 2 14, "αγ[ιί]ου\\s+βαλεντ[ιί]νου")
   , ("halloween day"    , monthDay 10 31, "halloween")
   , ("Epiphany"         , monthDay 1 6, "θεοφ(αά)νε[ιί](α|ων)|φ[ωώ]τ(α|ων)")
-  , ("annunciation day" , monthDay 3 25, "ευαγγελισμ(ός|ού)\\s+της\\s+θεοτόκου")
+  , ("annunciation day" , monthDay 3 25, "ευαγγελισμ([οό]ς|ο[υύ])\\s+της\\s+θεοτ[οό]κου")
   , ("revolution day"   , monthDay 3 25
-                        , "η?μέρα\\s+(της\\s+)?(ελληνικής\\s+)?επανάστασης")
+                        , "η?μ[εέ]ρα\\s+(της\\s+)?(ελληνικ[ηή]ς\\s+)?επαν[αά]στασης")
   , ("assumption day"   , monthDay  8 15
-                        , "κο[ιί]μ[ηή]σ(η|ις|εως)\\s+της\\s+θεοτόκου")
-  , ("christmas eve"    , monthDay 12 24, "παραμν(ή|έ)ς?\\s+χριστουγέννων")
+                        , "κο[ιί]μ[ηή]σ(η|ις|εως)\\s+της\\s+θεοτ[οό]κου")
+  , ("christmas eve"    , monthDay 12 24, "παραμν([ηή]|[εέ])ς?\\s+χριστουγ[εέ]ννων")
   , ("christmas"        , monthDay 12 25, "χριστο[υύ]γ[εέ]νν(α|ων)")
-  , ("new year's eve"   , monthDay 12 31, "παραμον(ή|έ)ς?\\s+πρωτοχρονιάς")
-  , ("Mother's Day"     , nthDOWOfMonth 2 7 5, "η?μέρας?\\s+της\\s+μητέρας")
+  , ("new year's eve"   , monthDay 12 31, "παραμον(ή|έ)ς?\\s+πρωτοχρονι[αά]ς")
+  , ("Mother's Day"     , nthDOWOfMonth 2 7 5, "η?μ[εέ]ρας?\\s+της\\s+μητ[εέ]ρας")
   , ("Father's Day"     , nthDOWOfMonth 3 7 6
-                        , "(γιορτής?|η?μέρας?)\\s+του\\s+πατέρα")
+                        , "(γιορτ[ηή]ς?|η?μ[εέ]ρας?)\\s+του\\s+πατ[εέ]ρα")
   ]
 
 ruleRelativeIntegerToOrAfterIntegerPartOfDay :: Rule
@@ -133,7 +133,7 @@ ruleRelativeIntegerToOrAfterIntegerPartOfDay = Rule
   { name = "relative integer (minutes) to|till|before|after <integer> (time-of-day)"
   , pattern =
     [ Predicate $ isIntegerBetween 1 30
-    , regex "(πριν|μετά)"
+    , regex "(πριν|μετ[αά])"
     , Predicate isATimeOfDay
     ]
   , prod = \tokens -> case tokens of
@@ -151,7 +151,7 @@ ruleQuarterBeforeOrAfterIntegerHourofday = Rule
   { name = "quarter to|past <integer> (hour-of-day)"
   , pattern =
     [ Predicate isAnHourOfDay
-    , regex "(παρά|και)\\s+τέταρτο"
+    , regex "(παρ[αά]|και)\\s+τ[εέ]ταρτο"
     ]
   , prod = \tokens -> case tokens of
       (Token Time td:
@@ -167,7 +167,7 @@ ruleHalfAfterIntegerHourofday = Rule
   { name = "half after|past <integer> (hour-of-day)"
   , pattern =
     [ Predicate isAnHourOfDay
-    , regex "και μισή"
+    , regex "και μισ[ηή]"
     ]
   , prod = \tokens -> case tokens of
       (Token Time TimeData {TTime.form = Just (TTime.TimeOfDay (Just hours) is12H)}:
@@ -179,8 +179,8 @@ ruleHalfAfterIntegerHourofday2 :: Rule
 ruleHalfAfterIntegerHourofday2 = Rule
   { name = "<integer>-and-half (hour-of-day)"
   , pattern =
-    [ regex $ "(μιά|ενά|δυό|τρεισή|τεσσερι?σή|πεντέ|εξί|ε[πφ]τά|ο[κχ]τώ|εννιά|"
-           ++ "δεκά|εντεκά|δωδεκά)μισ[ιη]ς?"
+    [ regex $ "(μι[αά]|εν[αά]|δυ[οό]|τρεισ[ηή]|τεσσερι?σ[ηή]|πεντ[εέ]|εξ[ιί]|ε[πφ]τ[αά]|ο[κχ]τ[ωώ]|εννι[αά]|"
+           ++ "δεκ[αά]|εντεκ[αά]|δωδεκ[αά])μισ[ιη]ς?"
     ]
   , prod = \tokens -> case tokens of
       (Token RegexMatch (GroupMatch (num:_)):_) ->
@@ -208,7 +208,7 @@ ruleLastTime :: Rule
 ruleLastTime = Rule
   { name = "last <time>"
   , pattern =
-    [ regex "(τελευταί|περασμέν|προηγο[υύ]μ[εέ]ν)(α|ά|ο[υύ]?|η|ή|ε|έ|ω|ώ)ν?ς?"
+    [ regex "(τελευτα[ιί]|περασμ[εέ]ν|προηγο[υύ]μ[εέ]ν)(α|ά|ο[υύ]?|η|ή|ε|έ|ω|ώ)ν?ς?"
     , Predicate isOkWithThisNext
     ]
   , prod = \tokens -> case tokens of
@@ -259,7 +259,7 @@ rulePartOfMonth :: Rule
 rulePartOfMonth = Rule
   { name = "part of <named-month>"
   , pattern =
-    [ regex "(αρχ(?:ές|η)|μέσ[οα]υ?|τέλ(?:ου?ς|η))(?:\\s+του)?"
+    [ regex "(αρχ(?:[εέ]ς|η)|μ[εέ]σ[οα]υ?|τ[εέ]λ(?:ου?ς|η))(?:\\s+του)?"
     , Predicate isAMonth
     ]
   , prod = \tokens -> case tokens of
@@ -293,7 +293,7 @@ ruleLastCycleOfTime :: Rule
 ruleLastCycleOfTime = Rule
   { name = "last <cycle> of <time>"
   , pattern =
-    [ regex "τελευταί(ο[ιυ]?ς?|α|ες|ων)"
+    [ regex "τελευτα[ιί](ο[ιυ]?ς?|α|ες|ων)"
     , dimension TimeGrain
     , regex "σ?τ(ο[υν]?|η[νς]?|ων)"
     , dimension Time
@@ -308,7 +308,7 @@ ruleLastCycleOfTimeS :: Rule
 ruleLastCycleOfTimeS = Rule
   { name = "last <cycle> <time>'s'"
   , pattern =
-    [ regex "τελευταί(ο[ιυ]?ς?|α|ες|ων)"
+    [ regex "τελευτα[ιί](ο[ιυ]?ς?|α|ες|ων)"
     , dimension TimeGrain
     , dimension Time
     ]
@@ -322,7 +322,7 @@ ruleFromDatetimeDatetimeInterval :: Rule
 ruleFromDatetimeDatetimeInterval = Rule
   { name = "from <datetime> - <datetime> (interval)"
   , pattern =
-    [ regex "από(\\s+τ(ις|η))?"
+    [ regex "απ[οό](\\s+τ(ις|η))?"
     , Predicate $ and . sequence [isNotLatent, isATimeOfDay]
     , regex "\\-|μέχρι(\\s+τ(ις|η))?"
     , Predicate isNotLatent
@@ -352,7 +352,7 @@ ruleMonthDdddInterval :: Rule
 ruleMonthDdddInterval = Rule
   { name = "dd-dd <month> (interval)"
   , pattern =
-    [ regex "(από\\s+)?(τ[ιη][νς]?\\s+)?([012]?\\d|30|31)η?ς?"
+    [ regex "(απ[οό]\\s+)?(τ[ιη][νς]?\\s+)?([012]?\\d|30|31)η?ς?"
     , regex "\\-|μ[εέ](χρι)?(?:\\s+τ[ιη][νς]?)?"
     , regex "([012]?\\d|30|31)η?ς?"
     , Predicate isAMonth
@@ -376,7 +376,7 @@ ruleTheCycleAfterTime = Rule
   { name = "the <cycle> after <time>"
   , pattern =
     [ dimension TimeGrain
-    , regex "μετά τ(ου?|η|ι|α|ου)ν?ς?"
+    , regex "μετ[αά] τ(ου?|η|ι|α|ου)ν?ς?"
     , dimension Time
     ]
   , prod = \tokens -> case tokens of
@@ -443,7 +443,7 @@ ruleThisDayofWeek :: Rule
 ruleThisDayofWeek = Rule
   { name = "this <day-of-week>"
   , pattern =
-    [ regex "αυτή[νς]? τη[νς]?"
+    [ regex "αυτ[ηή][νς]? τη[νς]?"
     , Predicate isADayOfWeek
     ]
   , prod = \tokens -> case tokens of
@@ -455,7 +455,7 @@ ruleTheDayOf :: Rule
 ruleTheDayOf = Rule
   { name = "on the day of <day>"
   , pattern =
-    [ regex "ανήμερα"
+    [ regex "αν[ηή]μερα"
     , Predicate $ isGrainOfTime TG.Day
     ]
   , prod = \tokens -> case tokens of
@@ -479,7 +479,7 @@ ruleBetweenTimeofdayAndTimeofdayInterval :: Rule
 ruleBetweenTimeofdayAndTimeofdayInterval = Rule
   { name = "between <time-of-day> and <time-of-day> (interval)"
   , pattern =
-    [ regex "μεταξύ|ανάμεσα"
+    [ regex "μεταξ[υύ]|αν[αά]μεσα"
     , Predicate isATimeOfDay
     , regex "(και(\\s+τ(ου|ης))?|\\-)"
     , Predicate isATimeOfDay
@@ -507,7 +507,7 @@ ruleTimeofdayApproximately = Rule
   { name = "<time-of-day> approximately"
   , pattern =
     [ Predicate isATimeOfDay
-    , regex "περίπου|και κάτι"
+    , regex "περ[ιί]που|και κ[αά]τι"
     ]
   , prod = \tokens -> case tokens of
       (Token Time td:_) -> tt $ notLatent td
@@ -520,7 +520,7 @@ ruleInDurationFromTime = Rule
   , pattern =
     [ regex "σε"
     , dimension Duration
-    , regex "(ξεκινώντας\\s+)?από"
+    , regex "(ξεκιν[ωώ]ντας\\s+)?απ[οό]"
     , dimension Time
     ]
   , prod = \tokens -> case tokens of
@@ -534,7 +534,7 @@ ruleDurationFromNow = Rule
   { name = "<duration> from now"
   , pattern =
     [ dimension Duration
-    , regex "από τώρα"
+    , regex "από τ[ωώ]ρα"
     ]
   , prod = \tokens -> case tokens of
       (Token Duration dd:_) -> tt $ inDuration dd
@@ -545,7 +545,7 @@ ruleLunch :: Rule
 ruleLunch = Rule
   { name = "lunch"
   , pattern =
-    [ regex "μεσημεριαν(ό|ού)( γεύμα(τος)?)?"
+    [ regex "μεσημεριαν(ό|ού)( γε[υύ]μα(τος)?)?"
     ]
   , prod = \_ ->
       let from = hour False 12
@@ -558,7 +558,7 @@ ruleLastCycle :: Rule
 ruleLastCycle = Rule
   { name = "last <cycle>"
   , pattern =
-    [ regex "τελευταί(ου?|ας?)"
+    [ regex "τελευτα[ιί](ου?|ας?)"
     , dimension TimeGrain
     ]
   , prod = \tokens -> case tokens of
@@ -608,7 +608,7 @@ ruleInduringThePartofday :: Rule
 ruleInduringThePartofday = Rule
   { name = "in|during the <part-of-day>"
   , pattern =
-    [ regex "κατά τη διάρκεια του|(μέσα )?σ?το"
+    [ regex "κατ[αά] τη δι[αά]ρκεια του|(μ[εέ]σα )?σ?το"
     , Predicate isAPartOfDay
     ]
   , prod = \tokens -> case tokens of
@@ -711,7 +711,7 @@ ruleBetweenDatetimeAndDatetimeInterval :: Rule
 ruleBetweenDatetimeAndDatetimeInterval = Rule
   { name = "between <datetime> and <datetime> (interval)"
   , pattern =
-    [ regex "μεταξύ|ανάμεσα"
+    [ regex "μεταξ[υύ]|αν[αά]μεσα"
     , Predicate isNotLatent
     , regex "(και|\\-)"
     , Predicate isNotLatent
@@ -742,7 +742,7 @@ ruleHenceAgoDuration :: Rule
 ruleHenceAgoDuration = Rule
   { name = "before <duration>"
   , pattern =
-    [ regex "(πριν(\\s+από)?|εδώ και)"
+    [ regex "(πριν(\\s+απ[οό])?|εδ[ωώ] και)"
     , dimension Duration
     ]
   , prod = \tokens -> case tokens of
@@ -770,7 +770,7 @@ ruleByTheEndOfTime :: Rule
 ruleByTheEndOfTime = Rule
   { name = "by the end of <time>"
   , pattern =
-    [ regex "μέχρι το (τέλος|πέρας)"
+    [ regex "μ[εέ]χρι το (τ[εέ]λος|π[εέ]ρας)"
     , dimension Time
     ]
   , prod = \tokens -> case tokens of
@@ -782,7 +782,7 @@ ruleAfterWork :: Rule
 ruleAfterWork = Rule
   { name = "after work"
   , pattern =
-    [ regex "μετά τη δουλειά"
+    [ regex "μετ[αά] τη δουλει[αά]"
     ]
   , prod = \_ -> do
       td2 <- interval TTime.Open (hour False 17) (hour False 21)
@@ -793,7 +793,7 @@ ruleLastNCycle :: Rule
 ruleLastNCycle = Rule
   { name = "last n <cycle>"
   , pattern =
-    [ regex "(τελευταί|περασμέν)(ο[ιυ]?ς?|[εα]ς?|ων)"
+    [ regex "(τελευτα[ιί]|περασμ[εέ]ν)(ο[ιυ]?ς?|[εα]ς?|ων)"
     , Predicate $ isIntegerBetween 1 9999
     , dimension TimeGrain
     ]
@@ -808,7 +808,7 @@ ruleWithinDuration :: Rule
 ruleWithinDuration = Rule
   { name = "within <duration>"
   , pattern =
-    [ regex "μέσα(\\s+σε)?"
+    [ regex "μ[εέ]σα(\\s+σε)?"
     , dimension Duration
     ]
   , prod = \tokens -> case tokens of
@@ -821,7 +821,7 @@ ruleMidnight :: Rule
 ruleMidnight = Rule
   { name = "midnight"
   , pattern =
-      [ regex "μεσάνυχτα"
+      [ regex "μεσ[αά]νυχτα"
       ]
   , prod = const $ tt $ hour False 0
   }
@@ -855,7 +855,7 @@ rulePrecisionTimeofday :: Rule
 rulePrecisionTimeofday = Rule
   { name = "about <time-of-day>"
   , pattern =
-    [ regex "περίπου|ακριβώς"
+    [ regex "περ[ιί]που|ακριβ[ωώ]ς"
     , Predicate $ isGrainFinerThan TG.Year
     ]
   , prod = \tokens -> case tokens of
@@ -867,7 +867,7 @@ ruleIntervalBy :: Rule
 ruleIntervalBy = Rule
   { name = "until <time>"
   , pattern =
-    [ regex "μέχρι"
+    [ regex "μ[εέ]χρι"
     , dimension Time
     ]
   , prod = \tokens -> case tokens of
@@ -879,7 +879,7 @@ ruleIntervalByTheEndOf :: Rule
 ruleIntervalByTheEndOf = Rule
   { name = "by the end of <time>"
   , pattern =
-    [ regex "μέχρι το τέλος"
+    [ regex "μ[εέ]χρι το τ[εέ]λος"
     , dimension Time
     ]
   , prod = \tokens -> case tokens of
@@ -892,7 +892,7 @@ ruleUntilTimeofdayPostfix = Rule
   { name = "<time-of-day> until"
   , pattern =
     [ dimension Time
-    , regex "το αργότερο"
+    , regex "το αργ[οό]τερο"
     ]
   , prod = \tokens -> case tokens of
       (Token Time td:_) -> tt $ withDirection TTime.Before td
@@ -946,7 +946,7 @@ ruleWeekend :: Rule
 ruleWeekend = Rule
   { name = "week-end"
   , pattern =
-    [ regex "σαββατοκύριακ(ου?|α|ων)|σκ"
+    [ regex "σαββατοκ[υύ]ριακ(ου?|α|ων)|σκ"
     ]
   , prod = const . tt . mkOkForThisNext $ weekend
   }
@@ -955,7 +955,7 @@ ruleLastWeekendOfMonth :: Rule
 ruleLastWeekendOfMonth = Rule
   { name = "last weekend of <named-month>"
   , pattern =
-    [ regex "τελευταίου?\\s+(σαββατοκύριακου?|σκ)\\s+"
+    [ regex "τελευτα[ίι]ου?\\s+(σαββατοκ[υύ]ριακου?|σκ)\\s+"
     , Predicate isAMonth
     ]
   , prod = \tokens -> case tokens of
@@ -1023,7 +1023,7 @@ ruleOrdinalCycleAfterTime = Rule
   , pattern =
     [ dimension Ordinal
     , dimension TimeGrain
-    , regex "μετά"
+    , regex "μετ[αά]"
     , dimension Time
     ]
   , prod = \tokens -> case tokens of
@@ -1117,7 +1117,7 @@ ruleEarlyMorning :: Rule
 ruleEarlyMorning = Rule
   { name = "early morning"
   , pattern =
-    [ regex "νωρίς\\s+(το\\s+)?πρω[ιί]"
+    [ regex "νωρ[ιί]ς\\s+(το\\s+)?πρω[ιί]"
     ]
   , prod = \_ -> Token Time . partOfDay . mkLatent <$>
       interval TTime.Open (hour False 4) (hour False 9)
@@ -1179,7 +1179,7 @@ ruleAfterTimeofday :: Rule
 ruleAfterTimeofday = Rule
   { name = "after <time-of-day>"
   , pattern =
-    [ regex "μετά"
+    [ regex "μετ[αά]"
     , dimension Time
     ]
   , prod = \tokens -> case tokens of
@@ -1211,13 +1211,17 @@ cyclesMap = HashMap.fromList
   , ("περασμέν"  , -1)
   , ("προηγούμεν", -1)
   , ("προηγουμέν", -1)
+  , ("ερχομεν"   , 0)
+  , ("επομεν"    , 1)
+  , ("περασμεν"  , -1)
+  , ("προηγουμεν", -1)
   ]
 
 ruleCycleCurrentLastNext :: Rule
 ruleCycleCurrentLastNext = Rule
   { name = "this|last|next <cycle>"
   , pattern =
-    [ regex $ "(τρ[εέ]χ|επ[οό]μ[εέ]ν|ερχ[οό]μ[εέ]ν|περασμέν|προηγο[υύ]μ[εέ]ν)"
+    [ regex $ "(τρ[εέ]χ|επ[οό]μ[εέ]ν|ερχ[οό]μ[εέ]ν|περασμ[εέ]ν|προηγο[υύ]μ[εέ]ν)"
            ++ "(ουσ)?(α|ά|ο[υύ]?|η|ή|ε|έ|ω|ώ)ν?ς?"
     , dimension TimeGrain
     ]
@@ -1231,7 +1235,7 @@ ruleNight :: Rule
 ruleNight = Rule
   { name = "night"
   , pattern =
-    [ regex "νύχτα"
+    [ regex "ν[υύ]χτα"
     ]
   , prod = const $
       let from = hour False 20
@@ -1270,7 +1274,7 @@ ruleTimeofdayAmpmVerbose = Rule
   { name = "<time-of-day> am|pm (verbose)"
   , pattern =
     [ Predicate isATimeOfDay
-    , regex "το\\s+(πρωί|απόγευμα)"
+    , regex "το\\s+(πρω[ιί]|απ[οό]γευμα)"
     ]
   , prod = \tokens -> case tokens of
       (Token Time td:Token RegexMatch (GroupMatch (ap:_)):_) ->
@@ -1282,7 +1286,7 @@ ruleAfterNextTime :: Rule
 ruleAfterNextTime = Rule
   { name = "after next <time>"
   , pattern =
-    [ regex "μετά τ(ο|η)ν? επόμεν(ο|η)ν?"
+    [ regex "μετ[αά] τ(ο|η)ν? επ[οό]μεν(ο|η)ν?"
     , dimension Time
     ]
   , prod = \tokens -> case tokens of
@@ -1326,7 +1330,7 @@ ruleIntervalTODAMPM = Rule
  { name = "hh(:mm) - <time-of-day> am|pm"
  , pattern =
    [ regex "(?:από )?((?:[01]?\\d)|(?:2[0-3]))([:.]([0-5]\\d))?"
-   , regex "\\-|:|μέχρι"
+   , regex "\\-|:|μ[εέ]χρι"
    , Predicate isATimeOfDay
    , regex "([πμ])(\\s|\\.)?(μ\\.?)?"
    ]
@@ -1350,8 +1354,8 @@ ruleIntervalTODAMPMverbose :: Rule
 ruleIntervalTODAMPMverbose = Rule
  { name = "hh(:mm) - <time-of-day> am|pm (verbose)"
  , pattern =
-   [ regex "(?:από\\s+)?((?:[01]?\\d)|(?:2[0-3]))([:.]([0-5]\\d))?"
-   , regex "\\-|:|μέχρι"
+   [ regex "(?:απ[οό]\\s+)?((?:[01]?\\d)|(?:2[0-3]))([:.]([0-5]\\d))?"
+   , regex "\\-|:|μ[εέ]χρι"
    , Predicate isATimeOfDay
    , regex "(?:το\\s+)?(πρωί|απόγευμα)"
    ]
@@ -1373,7 +1377,7 @@ ruleTonight :: Rule
 ruleTonight = Rule
   { name = "tonight"
   , pattern =
-    [ regex "απόψε"
+    [ regex "απ[οό]ψε"
     ]
   , prod = \_ -> do
       td2 <- interval TTime.Open (hour False 18) (hour False 0)
@@ -1384,7 +1388,7 @@ ruleTomorrowNight :: Rule
 ruleTomorrowNight = Rule
   { name = "tomorrownight"
   , pattern =
-    [ regex "αύριο\\s+(το\\s+)?βρ[αά]δυ"
+    [ regex "α[υύ]ριο\\s+(το\\s+)?βρ[αά]δυ"
     ]
   , prod = \_ -> do
       let td1 = cycleNth TG.Day 1
@@ -1448,7 +1452,7 @@ ruleNextYear :: Rule
 ruleNextYear = Rule
   { name = "Last year"
   , pattern =
-    [ regex "του\\s*χρόνου"
+    [ regex "του\\s*χρ[οό]νου"
     ]
   , prod = const . tt $ cycleNth TG.Year 1
   }
@@ -1495,7 +1499,7 @@ ruleLastDayofweekOfTime :: Rule
 ruleLastDayofweekOfTime = Rule
   { name = "last <day-of-week> of <time>"
   , pattern =
-    [ regex "τελευταί(ου?|ας?)"
+    [ regex "τελευτα[ιί](ου?|ας?)"
     , Predicate isADayOfWeek
     , regex "τ(ου|ης)"
     , dimension Time
@@ -1540,7 +1544,7 @@ ruleDurationAfterTime = Rule
   { name = "<duration> after <time>"
   , pattern =
     [ dimension Duration
-    , regex "μετά(\\s+από)?|από"
+    , regex "μετ[αά](\\s+απ[οό])?|απ[οό]"
     , dimension Time
     ]
   , prod = \tokens -> case tokens of
@@ -1636,7 +1640,7 @@ ruleIntervalForDurationFrom = Rule
   , pattern =
     [ regex "για"
     , dimension Duration
-    , regex "(ξεκινώντας\\s+)?(μετά(\\s+από)?|από)"
+    , regex "(ξεκιν[ωώ]ντας\\s+)?(μετ[αά](\\s+απ[οό])?|απ[οό])"
     , dimension Time
     ]
   , prod = \tokens -> case tokens of
