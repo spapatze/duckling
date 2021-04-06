@@ -21,11 +21,11 @@ import Duckling.Types
 grains :: [(Text, String, TG.Grain)]
 grains =
   [ ("second (grain) ", "δε[υύ]τερ([οό]λ[εέ]πτ)?(ου?|α|ων)", TG.Second)
-  , ("minute (grain)" , "λεπτ(o|[οό]ν?|ο[υύ]|[αά]|[ωώ]ν)"              , TG.Minute)
-  , ("hour (grain)"   , "[ωώ](ρ(ας?|ες|[ωώ]ν))?"              , TG.Hour)
-  , ("day (grain)"    , "η?μ[εέ]ρ(ας?|ες|[ωώ]ν)"                 , TG.Day)
-  , ("week (grain)"   , "ε?βδομ[αά]δ(ας?ν?|ες|ων)"            , TG.Week)
-  , ("month (grain)"  , "μ[ηή]ν(ας?|ες|[ωώ]ν)"                   , TG.Month)
+  , ("minute (grain)" , "λεπτ(o|[οό]ν?|ο[υύ]|[αά]|[ωώ]ν)"  , TG.Minute)
+  , ("hour (grain)"   , "[ωώ](ρ(ας?|ες|[ωώ]ν))?"           , TG.Hour)
+  , ("day (grain)"    , "η?μ[εέ]ρ(ας?|ες|[ωώ]ν)"           , TG.Day)
+  , ("week (grain)"   , "ε?βδομ[αά]δ(ας?ν?|ες|ων)"         , TG.Week)
+  , ("month (grain)"  , "μ[ηή]ν(ας?|ες|[ωώ]ν)"             , TG.Month)
   , ("quarter (grain)", "τρ[ιί]μ[ηή]ν(ου?|α|ων)"           , TG.Quarter)
   , ("year (grain)"   , "[εέ]τ(ου?ς|η|[ωώ]ν)|χρ[οό]ν(ο[ιςυ]?|ι([αά]|[εέ]ς)|ι?[ωώ]ν)"
                       , TG.Year)

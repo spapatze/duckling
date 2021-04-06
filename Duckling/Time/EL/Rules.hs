@@ -268,6 +268,8 @@ rulePartOfMonth = Rule
           "αρχ" -> Just (1, 10)
           "μέσ" -> Just (11, 20)
           "τέλ" -> Just (21, -1)
+          "μεσ" -> Just (11, 20)
+          "τελ" -> Just (21, -1)
           _     -> Nothing
         start <- intersect td $ dayOfMonth sd
         end <- if ed /= -1
