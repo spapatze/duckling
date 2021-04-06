@@ -234,7 +234,7 @@ ruleEvening :: Rule
 ruleEvening = Rule
   { name = "evening"
   , pattern =
-    [ regex "βρ[αά]δυ"
+    [ regex "(το\\s+)?βρ[αά]δυ"
     ]
   , prod = \_ ->
       let from = hour False 18
@@ -572,7 +572,7 @@ ruleAfternoon :: Rule
 ruleAfternoon = Rule
   { name = "afternoon"
   , pattern =
-    [ regex "απ[οό]γε[υύ]μα(τος)?"
+    [ regex "(το\\s+)?απ[οό]γε[υύ]μα(τος)?"
     ]
   , prod = \_ ->
       let from = hour False 16
@@ -832,7 +832,7 @@ ruleNoon :: Rule
 ruleNoon = Rule
   { name = "noon"
   , pattern =
-    [ regex "μεσημ[εέ]ρι(ού)?"
+    [ regex "(του?\\s+)?μεσημ[εέ]ρι(ού)?"
     ]
   , prod = \_ ->
       let from = hour False 11
@@ -1106,7 +1106,7 @@ ruleMorning :: Rule
 ruleMorning = Rule
   { name = "morning"
   , pattern =
-    [ regex "πρω[ιί]"
+    [ regex "(το\\s+)?πρω[ιί]"
     ]
   , prod = \_ ->
       let from = hour False 4
@@ -1217,13 +1217,19 @@ cyclesMap = HashMap.fromList
   , ("επομεν"    , 1)
   , ("περασμεν"  , -1)
   , ("προηγουμεν", -1)
+  , ("μεθεπόμεν", +2)
+  , ("μεθεπομεν", +2)
+  , ("αυριαν", +1)
+  , ("μεθαυριαν", +1)
+  , ("παρεπόμεν", +2)
+  , ("παρεπομεν", +2)
   ]
 
 ruleCycleCurrentLastNext :: Rule
 ruleCycleCurrentLastNext = Rule
   { name = "this|last|next <cycle>"
   , pattern =
-    [ regex $ "(τρ[εέ]χ|επ[οό]μ[εέ]ν|ερχ[οό]μ[εέ]ν|περασμ[εέ]ν|προηγο[υύ]μ[εέ]ν)"
+    [ regex $ "(τρ[εέ]χ|επ[οό]μ[εέ]ν|ερχ[οό]μ[εέ]ν|μεθεπ[οό]μεν|αυριαν|μεθαυριαν|παρεπ[οό]μεν]|περασμ[εέ]ν|προηγο[υύ]μ[εέ]ν)"
            ++ "(ουσ)?(α|ά|ο[υύ]?|η|ή|ε|έ|ω|ώ)ν?ς?"
     , dimension TimeGrain
     ]
