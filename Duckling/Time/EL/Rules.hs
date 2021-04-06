@@ -259,7 +259,7 @@ rulePartOfMonth :: Rule
 rulePartOfMonth = Rule
   { name = "part of <named-month>"
   , pattern =
-    [ regex "(αρχ(?:[εέ]ς|η)|μ[εέ]σ[οα]υ?|τ[εέ]λ(?:ου?ς|η))(?:\\s+του)?"
+    [ regex "(αρχ(?:[εέ]ς|η)|μ[εέ]σ[οα]υ?|τ[εέ]λ(?:ου?ς|η))(?:\\s+του)?(?:\\s+μ[ηή]ν[α|ος|ός])?"
     , Predicate isAMonth
     ]
   , prod = \tokens -> case tokens of
@@ -392,7 +392,7 @@ ruleTheCycleOfTime = Rule
   { name = "the <cycle> of <time>"
   , pattern =
     [ dimension TimeGrain
-    , regex "τ(ου|ης)(μ[ηή]να)?"
+    , regex "τ(ου|ης)"
     , dimension Time
     ]
   , prod = \tokens -> case tokens of
