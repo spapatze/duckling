@@ -1217,12 +1217,12 @@ cyclesMap = HashMap.fromList
   , ("επομεν"    , 1)
   , ("περασμεν"  , -1)
   , ("προηγουμεν", -1)
-  , ("μεθεπόμεν", +2)
-  , ("μεθεπομεν", +2)
-  , ("αυριαν", +1)
-  , ("μεθαυριαν", +1)
-  , ("παρεπόμεν", +2)
-  , ("παρεπομεν", +2)
+  , ("μεθεπόμεν" , 2)
+  , ("μεθεπομεν" , 2)
+  , ("αυριαν"    , 1)
+  , ("μεθαυριαν" , 1)
+  , ("παρεπόμεν" , 2)
+  , ("παρεπομεν" , 2)
   ]
 
 ruleCycleCurrentLastNext :: Rule
@@ -1282,7 +1282,7 @@ ruleTimeofdayAmpmVerbose = Rule
   { name = "<time-of-day> am|pm (verbose)"
   , pattern =
     [ Predicate isATimeOfDay
-    , regex "το\\s+(πρω[ιί]|απ[οό]γευμα)"
+    , regex "(το\\s+)?(πρω[ιί]|απ[οό]γευμα)"
     ]
   , prod = \tokens -> case tokens of
       (Token Time td:Token RegexMatch (GroupMatch (ap:_)):_) ->
