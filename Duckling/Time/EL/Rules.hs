@@ -392,7 +392,7 @@ ruleTheCycleOfTime = Rule
   { name = "the <cycle> of <time>"
   , pattern =
     [ dimension TimeGrain
-    , regex "τ(ου|ης)"
+    , regex "τ(ου|ης)(μ[ηή]να)?"
     , dimension Time
     ]
   , prod = \tokens -> case tokens of
