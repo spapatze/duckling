@@ -1286,7 +1286,7 @@ ruleTimeofdayAmpmVerbose = Rule
     ]
   , prod = \tokens -> case tokens of
       (Token Time td:Token RegexMatch (GroupMatch (ap:_)):_) ->
-        tt $ timeOfDayAMPM (Text.toLower ap == "πρωί") td
+        tt $ timeOfDayAMPM (Text.toLower ap == "πρωι") td
       _ -> Nothing
   }
 
@@ -1365,7 +1365,7 @@ ruleIntervalTODAMPMverbose = Rule
    [ regex "(?:απ[οό]\\s+)?((?:[01]?\\d)|(?:2[0-3]))([:.]([0-5]\\d))?"
    , regex "\\-|:|μ[εέ]χρι"
    , Predicate isATimeOfDay
-   , regex "(?:το\\s+)?(πρωί|απόγευμα)"
+   , regex "(?:το\\s+)?(πρω[ιί]|απ[οό]γευμα)"
    ]
  , prod = \tokens -> case tokens of
      (Token RegexMatch (GroupMatch (hh:_:mm:_)):
@@ -1374,7 +1374,7 @@ ruleIntervalTODAMPMverbose = Rule
       Token RegexMatch (GroupMatch (ap:_)):
       _) -> do
        h <- parseInt hh
-       let ampm = Text.toLower ap == "πρωί"
+       let ampm = Text.toLower ap == "πρωι"
            td1 = maybe (hour True h) (hourMinute True h) (parseInt mm)
        Token Time <$>
          interval TTime.Closed (timeOfDayAMPM ampm td1) (timeOfDayAMPM ampm td2)
