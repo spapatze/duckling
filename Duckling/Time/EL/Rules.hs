@@ -234,7 +234,7 @@ ruleEvening :: Rule
 ruleEvening = Rule
   { name = "evening"
   , pattern =
-    [ regex "(το\\s+)?βρ[αά]δυ"
+    [ regex "βρ[αά]δυ"
     ]
   , prod = \_ ->
       let from = hour False 18
@@ -572,7 +572,7 @@ ruleAfternoon :: Rule
 ruleAfternoon = Rule
   { name = "afternoon"
   , pattern =
-    [ regex "(το\\s+)?απ[οό]γε[υύ]μα(τος)?"
+    [ regex "απ[οό]γε[υύ]μα(τος)?"
     ]
   , prod = \_ ->
       let from = hour False 16
@@ -832,7 +832,7 @@ ruleNoon :: Rule
 ruleNoon = Rule
   { name = "noon"
   , pattern =
-    [ regex "(του?\\s+)?μεσημ[εέ]ρι(ού)?"
+    [ regex "μεσημ[εέ]ρι(ού)?"
     ]
   , prod = \_ ->
       let from = hour False 11
@@ -1106,7 +1106,7 @@ ruleMorning :: Rule
 ruleMorning = Rule
   { name = "morning"
   , pattern =
-    [ regex "(το\\s+)?πρω[ιί]"
+    [ regex "πρω[ιί]"
     ]
   , prod = \_ ->
       let from = hour False 4
