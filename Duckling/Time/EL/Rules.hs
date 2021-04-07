@@ -1102,6 +1102,26 @@ ruleADuration = Rule
       _ -> Nothing
   }
 
+rulePartOfDays :: Rule
+rulePartOfDays = Rule
+  { name = "part of days"
+  , pattern =
+    [ regex "(πρωι|μεσημερι|βραδυ|απογευμα|"
+    ]
+  , prod = \tokens -> case tokens of
+      (Token RegexMatch (GroupMatch (match:_)):_) -> do
+        let (start, end) = case Text.toLower match of
+              "πρωι"  -> (hour False 0, hour False 12)
+              "μεσημερι"  -> (hour False 11, hour False 17)
+              "βραδυ"    -> (hour False 18, hour False 0)
+              "απογευμα"    -> (hour False 16, hour False 20)
+              "βραδυ" -> (hour False 12, hour False 14)
+              _          -> (hour False 12, hour False 19)
+        td <- interval TTime.Open start end
+        tt . partOfDay $ mkLatent td
+      _ -> Nothing
+  }
+
 ruleMorning :: Rule
 ruleMorning = Rule
   { name = "morning"
@@ -1784,6 +1804,7 @@ rules =
   , ruleYearLatent
   , ruleYearLatent2
   , ruleYyyymmdd
+  , rulePartOfDays
   ]
   ++ ruleDaysOfWeek
   ++ ruleHolidays
