@@ -1119,7 +1119,7 @@ ruleEarlyMorning :: Rule
 ruleEarlyMorning = Rule
   { name = "early morning"
   , pattern =
-    [ regex "νωρ[ιί]ς\\s+(το\\s+)?πρω[ιί]"
+    [ regex "νωρις\\s+(το\\s+)?πρωι"
     ]
   , prod = \_ -> Token Time . partOfDay . mkLatent <$>
       interval TTime.Open (hour False 4) (hour False 9)
@@ -1282,7 +1282,7 @@ ruleTimeofdayAmpmVerbose = Rule
   { name = "<time-of-day> am|pm (verbose)"
   , pattern =
     [ Predicate isATimeOfDay
-    , regex "(το\\s+)?(πρω[ιί]|απ[οό]γευμα)"
+    , regex "(το\\s+)?(πρωι|απογευμα)"
     ]
   , prod = \tokens -> case tokens of
       (Token Time td:Token RegexMatch (GroupMatch (ap:_)):_) ->
