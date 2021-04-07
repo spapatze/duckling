@@ -1106,7 +1106,7 @@ ruleMorning :: Rule
 ruleMorning = Rule
   { name = "morning"
   , pattern =
-    [ regex "πρω[ιί]"
+    [ regex "(πρωι|πρωί)"
     ]
   , prod = \_ ->
       let from = hour False 4
@@ -1124,17 +1124,6 @@ ruleEarlyMorning = Rule
   , prod = \_ -> Token Time . partOfDay . mkLatent <$>
       interval TTime.Open (hour False 4) (hour False 9)
   }
-
-
-  ruleEarlyMorning :: Rule
-  ruleEarlyMorning = Rule
-    { name = "early morning"
-    , pattern =
-      [ regex "early ((in|hours of) the )?morning"
-      ]
-    , prod = \_ -> Token Time . partOfDay . mkLatent <$>
-        interval TTime.Open (hour False 0) (hour False 9)
-    }
 
 ruleThisPartofday :: Rule
 ruleThisPartofday = Rule
