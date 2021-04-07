@@ -1282,7 +1282,7 @@ ruleTimeofdayAmpmVerbose = Rule
   { name = "<time-of-day> am|pm (verbose)"
   , pattern =
     [ Predicate isATimeOfDay
-    , regex "(το\\s+)?(πρωι|απογευμα)"
+    , regex "(?:το\\s+)?(πρω[ιί]|απ[οό]γευμα)"
     ]
   , prod = \tokens -> case tokens of
       (Token Time td:Token RegexMatch (GroupMatch (ap:_)):_) ->
