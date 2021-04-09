@@ -207,6 +207,12 @@ rulePowersOfTen = Rule
         "δις"            -> double 1e9 >>= withGrain 9 >>= withMultipliable
         "δισεκατομμύριο" -> double 1e9 >>= withGrain 9 >>= withMultipliable
         "δισεκατομμύρια" -> double 1e9 >>= withGrain 9 >>= withMultipliable
+        "χιλια"          -> double 1e3 >>= withGrain 3 >>= withMultipliable
+        "χιλιαδες"       -> double 1e3 >>= withGrain 3 >>= withMultipliable
+        "εκατομμυριο"    -> double 1e6 >>= withGrain 6 >>= withMultipliable
+        "εκατομμυρια"    -> double 1e6 >>= withGrain 6 >>= withMultipliable
+        "δισεκατομμυριο" -> double 1e9 >>= withGrain 9 >>= withMultipliable
+        "δισεκατομμυρια" -> double 1e9 >>= withGrain 9 >>= withMultipliable
         _                -> Nothing
       _ -> Nothing
   }

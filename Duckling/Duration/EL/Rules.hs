@@ -42,13 +42,18 @@ timeGrainMap = HashMap.fromList
   , ( "ετή"   , TG.Year   )
   , ( "ετέ"   , TG.Year   )
   , ( "χρονο" , TG.Year   )
+  , ( "ημερο" , TG.Day    )
+  , ( "ετια"  , TG.Year   )
+  , ( "ετιας" , TG.Year   )
+  , ( "ετη"   , TG.Year   )
+  , ( "ετε"   , TG.Year   )
   ]
 
 ruleDurationQuarterOfAnHour :: Rule
 ruleDurationQuarterOfAnHour = Rule
   { name = "quarter of an hour"
   , pattern =
-    [ regex "(1/4|[εέ]ν(α|ός)\\s+τ[εέ]τ[αά]ρτου?)(\\s*ω|\\s+(της\\s+)?ώρας)?"
+    [ regex "(1/4|[εέ]ν(α|[οό]ς)\\s+τ[εέ]τ[αά]ρτου?)(\\s*ω|\\s+(της\\s+)?[ωώ]ρας)?"
     ]
   , prod = \_ -> Just . Token Duration $ duration TG.Minute 15
   }
@@ -57,7 +62,7 @@ ruleDurationHalfAnHour :: Rule
 ruleDurationHalfAnHour = Rule
   { name = "half an hour"
   , pattern =
-    [ regex "(1/2\\s?((της )?ώρας?|ω)|μισάωρου?)"
+    [ regex "(1/2\\s?((της )?[ωώ]ρας?|ω)|μισ[αά]ωρου?)"
     ]
   , prod = \_ -> Just . Token Duration $ duration TG.Minute 30
   }
@@ -66,7 +71,7 @@ ruleDurationThreeQuartersOfAnHour :: Rule
 ruleDurationThreeQuartersOfAnHour = Rule
   { name = "three quarters of an hour"
   , pattern =
-    [ regex "(3/4|τρ[ιί](α|ών)\\s+τ[εέ]τ[αά]ρτ(α|ων))(\\s*ω|\\s+(της\\s+)?ώρας)?"
+    [ regex "(3/4|τρ[ιί](α|[ωώ]ν)\\s+τ[εέ]τ[αά]ρτ(α|ων))(\\s*ω|\\s+(της\\s+)?[ωώ]ρας)?"
     ]
   , prod = \_ -> Just . Token Duration $ duration TG.Minute 45
   }
@@ -111,7 +116,7 @@ ruleDurationMoreNumeral = Rule
   { name = "<integer> more <unit-of-duration>"
   , pattern =
     [ Predicate isNatural
-    , regex "ακόμα|λιγότερ[οη]"
+    , regex "ακ[οό]μα|λιγ[οό]τερ[οη]"
     , dimension TimeGrain
     ]
   , prod = \tokens -> case tokens of
@@ -126,7 +131,7 @@ ruleDurationNumeralMore = Rule
   , pattern =
     [ Predicate isNatural
     , dimension TimeGrain
-    , regex "ακόμα|λιγότερ[οη]"
+    , regex "ακ[οό]μα|λιγ[οό]τερ[οη]"
     ]
   , prod = \tokens -> case tokens of
       (Token Numeral nd:Token TimeGrain grain:_:_) ->
@@ -167,7 +172,7 @@ ruleDurationAndAHalf = Rule
   { name = "<integer> and a half <grain>"
   , pattern =
     [ Predicate isNatural
-    , regex "και μισ[ήό]ς?"
+    , regex "και μισ[ήόηο]ς?"
     , dimension TimeGrain
     ]
   , prod = \tokens -> case tokens of
@@ -181,8 +186,8 @@ ruleDurationAndAHalfOneWord :: Rule
 ruleDurationAndAHalfOneWord = Rule
   { name = "<integer-and-half> <grain>"
   , pattern =
-    [ regex $ "(μιά|ενά|δυό|τρεισή|τεσσερι?σή|πεντέ|εξί|ε[πφ]τά|ο[κχ]τώ|εννιά|"
-           ++ "δεκά|εντεκά|δωδεκά)μισ[ιη]ς?"
+    [ regex $ "(μι[αά]|εν[αά]|δυ[οό]|τρεισ[ηή]|τεσσερι?σ[ηή]|πεντ[εέ]|εξ[ιί]|ε[πφ]τ[αά]|ο[κχ]τ[ωώ]|εννι[αά]|"
+           ++ "δεκ[αά]|εντεκ[αά]|δωδεκ[αά])μισ[ιη]ς?"
     , dimension TimeGrain
     ]
   , prod = \tokens -> case tokens of
