@@ -299,17 +299,46 @@ rulePartOfMonth = Rule
       _ -> Nothing
   }
 
+
+spMap :: HashMap Text Int
+spMap = HashMap.fromList
+  [ ("σε μια"      , 1)
+  , ("σε δυο"      , 2)
+  , ("σε τρεις"    , 3)
+  , ("σε τεσσερις" , 4)
+  , ("σε πεντε"    , 5)
+  , ("σε εξι"      , 6)
+  , ("σε εφτα"     , 7)
+  , ("σε επτα"     , 7)
+  , ("σε οκτω"     , 8)
+  , ("σε εννια"    , 9)
+  , ("σε εννεα"    , 9)
+  , ("σε δεκα"     , 10)
+  , ("σε 1" , 1)
+  , ("σε 2" , 2)
+  , ("σε 3" , 3)
+  , ("σε 4" , 4)
+  , ("σε 5" , 5)
+  , ("σε 6" , 6)
+  , ("σε 7" , 7)
+  , ("σε 8" , 8)
+  , ("σε 9" , 9)
+  , ("σε 10" , 10)
+  ]
+
 ruleInDuration :: Rule
 ruleInDuration = Rule
-  { name = "in <duration>"
+  { name = "this|last|next <cycle>"
   , pattern =
-    [ regex "σε"
-    , dimension Duration
+    [ regex $ "σε (μια|δυο|τρεις|τεσσερις|πεντε|εξι|ε[φπ]τα|οχτω|εννια|εννεα|δεκα)"
+    , dimension TimeGrain
     ]
   , prod = \tokens -> case tokens of
-      (_:Token Duration dd:_) -> tt $ inDuration dd
+      (Token RegexMatch (GroupMatch (match:_)):Token TimeGrain grain:_) ->
+        HashMap.lookup (Text.toLower match) spMap >>= tt . cycleNth grain
       _ -> Nothing
   }
+
 
 ruleLastCycleOfTime :: Rule
 ruleLastCycleOfTime = Rule
@@ -1028,7 +1057,7 @@ ruleYyyymmdd :: Rule
 ruleYyyymmdd = Rule
   { name = "yyyy-mm-dd"
   , pattern =
-    [ regex "(\\d{4,4})[.-/](1[0-2]|0?[1-9])[.-/](3[01]|[12]\\d|0?[1-9])"
+    [ regex "(\\d{3,4})[.-/](1[0-2]|0?[1-9])[.-/](3[01]|[12]\\d|0?[1-9])"
     ]
   , prod = \tokens -> case tokens of
       (Token RegexMatch (GroupMatch (m1:m2:m3:_)):_) -> do
