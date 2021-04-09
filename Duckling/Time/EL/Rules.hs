@@ -1170,8 +1170,11 @@ ruleEarlyMorning = Rule
   , pattern =
     [ regex "νωρις (το )?πρωι"
     ]
-  , prod = \_ -> Token Time . partOfDay . mkLatent <$>
-      interval TTime.Open (hour False 4) (hour False 9)
+  , prod = \_ ->
+      let from = hour False 4
+          to = hour False 9
+      in Token Time . mkLatent . partOfDay <$>
+           interval TTime.Open from to
   }
 
 ruleThisPartofday :: Rule
