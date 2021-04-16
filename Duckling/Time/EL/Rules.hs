@@ -39,9 +39,11 @@ ruleInstants = mkRuleInstants
   [ ( "now"             , TG.Second,  0, "(αμ[εέ]σως\\s+)?τ[ωώ]ρα(\\s+αμ[εέ]σως)?|αυτ[ηή] τη στιγμ[ηή]" )
   , ( "today"           , TG.Day   ,  0, "σ[ηή]μερα"                   )
   , ( "tomorrow"        , TG.Day   ,  1, "(επ)?α[υύ]ριο"               )
-  , ( "yesterday"       , TG.Day   , -1, "ε?χ[θτ][εέ]ς"             )
+  , ( "yesterday"       , TG.Day   , -1, "ε?χ[θτ][εέ]ς"                )
   , ( "after tomorrow"  , TG.Day   ,  2, "μεθα[υύ]ριο"                 )
   , ( "before yesterday", TG.Day   , -2, "προχ[θτ][εέ]ς"               )
+  , ( "before before yesterday", TG.Day   , -2, "παραπροχ[θτ][εέ]ς"    )
+  , ( "after after tomorrow"  , TG.Day   ,  2, "παραμεθα[υύ]ριο"       )
   , ( "EOD|End of day"  , TG.Day   ,  1, "τ[εέ]λου?ς\\s+της\\s+η?μ[εέ]ρας")
   , ( "EOM|End of month", TG.Month ,  1, "τ[εέ]λου?ς\\s+του\\s+μ[ηή]να"   )
   , ( "EOY|End of year" , TG.Year  ,  1, "τ[εέ]λου?ς\\s+του\\s+χρ[οό]νου" )
@@ -1029,7 +1031,7 @@ ruleYyyymmdd :: Rule
 ruleYyyymmdd = Rule
   { name = "yyyy-mm-dd"
   , pattern =
-    [ regex "(\\d{3,4})[.-/](1[0-2]|0?[1-9])[.-/](3[01]|[12]\\d|0?[1-9])"
+    [ regex "(\\d{4})[.-/](1[0-2]|0?[1-9])[.-/](3[01]|[12]\\d|0?[1-9])"
     ]
   , prod = \tokens -> case tokens of
       (Token RegexMatch (GroupMatch (m1:m2:m3:_)):_) -> do
@@ -1229,6 +1231,7 @@ cyclesMap :: HashMap Text Int
 cyclesMap = HashMap.fromList
   [ ("τρεχ"      , 0)
   , ("τρέχ"      , 0)
+  , ("σημεριν"   , 0)
   , ("ερχόμεν"   , 0)
   , ("ερχομέν"   , 0)
   , ("επόμεν"    , 1)
@@ -1236,7 +1239,11 @@ cyclesMap = HashMap.fromList
   , ("περασμέν"  , -1)
   , ("προηγούμεν", -1)
   , ("προηγουμέν", -1)
+  , ("παραπροηγούμεν", -2)
+  , ("παραπροηγουμεν", -2)
   , ("ερχομεν"   , 0)
+  , ("παρερχομεν"   , 1)
+  , ("παρερχόμεν"   , 1)
   , ("επομεν"    , 1)
   , ("περασμεν"  , -1)
   , ("προηγουμεν", -1)
