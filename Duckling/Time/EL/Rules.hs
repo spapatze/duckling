@@ -1144,11 +1144,8 @@ ruleEarlyMorning = Rule
   , pattern =
     [ regex "νωρις (το )?πρωι"
     ]
-  , prod = \_ ->
-      let from = hour False 4
-          to = hour False 9
-      in Token Time . mkLatent . partOfDay <$>
-           interval TTime.Open from to
+  , prod = \_ -> Token Time . partOfDay . mkLatent <$>
+        interval TTime.Open (hour False 0) (hour False 9)
   }
 
 ruleThisPartofday :: Rule
@@ -1231,7 +1228,7 @@ cyclesMap :: HashMap Text Int
 cyclesMap = HashMap.fromList
   [ ("τρεχ"      , 0)
   , ("τρέχ"      , 0)
-  , ("τωριν"      , 0)
+  , ("τωριν"     , 0)
   , ("σημεριν"   , 0)
   , ("ερχόμεν"   , 0)
   , ("ερχομέν"   , 0)
@@ -1260,7 +1257,7 @@ ruleCycleCurrentLastNext :: Rule
 ruleCycleCurrentLastNext = Rule
   { name = "this|last|next <cycle>"
   , pattern =
-    [ regex $ "(τρ[εέ]χ|επ[οό]μ[εέ]ν|ερχ[οό]μ[εέ]ν|μεθεπ[οό]μεν|αυριαν|μεθαυριαν|παρεπ[οό]μεν|περασμ[εέ]ν|προηγο[υύ]μ[εέ]ν)|τωριν|παραπροηγο[υύ]μεν|σημεριν|παερχ[οό]μεν|παραμεθαυριαν"
+    [ regex $ "(τρ[εέ]χ|επ[οό]μ[εέ]ν|ερχ[οό]μ[εέ]ν|μεθεπ[οό]μεν|αυριαν|μεθαυριαν|παρεπ[οό]μεν|περασμ[εέ]ν|προηγο[υύ]μ[εέ]ν|τωριν|παραπροηγο[υύ]μεν|σημεριν|παερχ[οό]μεν|παραμεθαυριαν)"
            ++ "(ουσ)?(α|ά|ο[υύ]?|η|ή|ε|έ|ω|ώ)ν?ς?"
     , dimension TimeGrain
     ]
